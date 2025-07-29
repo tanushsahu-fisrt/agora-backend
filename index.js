@@ -7,10 +7,14 @@ const { RtcTokenBuilder, RtcRole } = require('agora-access-token')
 const app = express()
 const PORT = process.env.PORT || 5000
 
-app.use(cors())
+app.use(cors({
+    issueCredentials: true,
+    origin: '*',
+}))
 app.use(bodyParser.json())
 
 app.post('/generateAgoraToken', (req, res) => {
+
   const { channelName, uid, role, expireTime } = req.body
 
   if (!channelName || uid == null) {
